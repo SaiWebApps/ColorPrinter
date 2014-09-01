@@ -22,7 +22,11 @@ using namespace std;
 ColorPrinter::ColorPrinter()
 {
     this->output_color_brightness = FAINT;
+
+    // R2.1
     this->character_printed_in_different_colors = DEFAULT_CHARACTER;
+
+    // R3.1
     this->number_milliseconds_between_printouts = DEFAULT_NUMBER_MILLISECONDS;
 }
 
@@ -49,10 +53,20 @@ void ColorPrinter::set_character_printed_in_different_colors(const char &input_c
 
 /**
  * Set the number of milliseconds to wait/pause before printing out the next color.
+ * Preconditions:
+ *      input_number_milliseconds > 0
+ * Return Value:
+ *      a boolean - true if precondition was observed and number_milliseconds_between_printouts
+ *                  was successfully updated; false otherwise
  */
-void ColorPrinter::set_number_milliseconds_between_printouts(const int &input_number_milliseconds)
+bool ColorPrinter::set_number_milliseconds_between_printouts(const int &input_number_milliseconds)
 {
-    this->number_milliseconds_between_printouts = input_number_milliseconds;
+    // R2.2
+    if (input_number_milliseconds >= 0) {
+        this->number_milliseconds_between_printouts = input_number_milliseconds;
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -76,6 +90,7 @@ void ColorPrinter::print_line_of_colored_characters()
     int i;
     int number_seconds_between_printouts = number_milliseconds_between_printouts / 1000;
 
+    // R1.1
     for (i = 0; i < NUM_COLORS; i++) {
         string output_string = get_output_string(output_order_of_colors[i]);
         printf("%s", output_string.c_str());

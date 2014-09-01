@@ -19,7 +19,7 @@ public:
     ColorPrinter(); // constructor
     void toggle_output_color_brightness();
     void set_character_printed_in_different_colors(const char &input_character);
-    void set_number_milliseconds_between_printouts(const int &input_number_milliseconds);
+    bool set_number_milliseconds_between_printouts(const int &input_number_milliseconds);
     void print_line_of_colored_characters();
     ~ColorPrinter(); // destructor
 };
