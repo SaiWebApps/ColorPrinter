@@ -37,7 +37,7 @@ R4.	All tasks shall take place within a cyclic executive in the main function.
 
 Design
 ===================
-
+<img src="colorprinterdesign.jpg" />
 
 
 Requirements - Implementation Traceability
