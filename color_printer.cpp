@@ -22,6 +22,7 @@ using namespace std;
 ColorPrinter::ColorPrinter()
 {
     this->output_color_brightness = FAINT;
+    this->stay_on_same_line = false;
 
     // R2.1
     this->character_printed_in_different_colors = DEFAULT_CHARACTER;
@@ -41,6 +42,16 @@ void ColorPrinter::toggle_output_color_brightness()
     else {
         output_color_brightness = FAINT;
     }
+}
+
+/**
+ * Set stay_on_same_line to the specified value.
+ * If stay_on_same_line is true, we will print '\r' after the line we just printed.
+ * Otherwise, we will print '\n' after the line of colored characters.
+ */
+void ColorPrinter::set_stay_on_same_line(const bool &input_stay_on_same_line)
+{
+    this->stay_on_same_line = input_stay_on_same_line;
 }
 
 /**
@@ -97,7 +108,13 @@ void ColorPrinter::print_line_of_colored_characters()
         fflush(stdout);
         sleep(number_seconds_between_printouts);
     }
-    printf("\n");
+
+    if (stay_on_same_line == true) {
+        printf("\r");
+    }
+    else {
+        printf("\n");
+    }
 }
 
 /**

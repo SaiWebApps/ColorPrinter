@@ -11,16 +11,18 @@
 
 struct option long_options[] = {
     {"verbose", no_argument, 0, 'v'},
+    {"single-line", no_argument, 0, 's'},
     {"pause-in-ms", required_argument, 0, 'p'},
     {"character-to-print", required_argument, 0, 'c'}
 };
 
 void print_usage(char *program_name)
 {
-    printf("%s [-p] [-c] [-v]\n", program_name);
+    printf("%s [-p] [-c] [-v] [-s]\n", program_name);
     printf("%-30s%30s\n", "-p (--pause-in-ms):", "Number of milliseconds to wait before printing each character.");
     printf("%-30s%30s\n", "-c (--character-to-print):", "Character to print on each line in different colors.");
     printf("%-30s%30s\n", "-v (--verbose):", "Display program's command-line usage information.");
+    printf("%-30s%30s\n", "-s (--single-line):", "Stay on the same line.");
 }
 
 void parse_command_line_arguments(int argc, char *argv[], ColorPrinter *cp)
@@ -28,8 +30,9 @@ void parse_command_line_arguments(int argc, char *argv[], ColorPrinter *cp)
     char character;
     int option, option_index, num_millis;
 
-    while((option = getopt_long(argc, argv, "p:c:v", long_options, &option_index)) != -1) {
+    while((option = getopt_long(argc, argv, "p:c:sv", long_options, &option_index)) != -1) {
         switch(option) {
+
             // Pause in milliseconds - how long to wait before printing out next character
             // creates a progress-bar-like effect
             case 'p':
@@ -46,6 +49,12 @@ void parse_command_line_arguments(int argc, char *argv[], ColorPrinter *cp)
             case 'c':
                 character = optarg[0]; // R3.2
                 cp->set_character_printed_in_different_colors(character);
+                break;
+
+            // Instead of printing a new line of colored characters with every cyclic executive cycle,
+            // return to the beginning of the same line.
+            case 's':
+                cp->set_stay_on_same_line(true);
                 break;
 
             // Verbose option to display program's command-line usage information
