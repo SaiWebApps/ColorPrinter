@@ -16,12 +16,14 @@ using namespace std;
 #define CYAN        string("\x1b[36;")
 #define WHITE       string("\x1b[37;")
 
-#define NUM_COLORS 8
-
 // Array containing the color macros in the order
 // that the colors should appear in the output
 
-const string output_order_of_colors[NUM_COLORS] = {RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, BLACK};
+const string output_order_of_colors[] = {RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, BLACK};
+
+// Macro retrieving the length of the output_order_of_colors array.
+
+#define NUM_COLORS  sizeof(output_order_of_colors) / sizeof(output_order_of_colors[0])
 
 // Color Brightness Macros
 
